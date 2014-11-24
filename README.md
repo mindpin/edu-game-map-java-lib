@@ -4,7 +4,7 @@ edu game map java library
 
 如何引用此组件：
 -------------
-** 安装 **
+**安装**
 测试可能因为被墙，不能正常完成，所以安装的时候跳过测试。
 
 ```
@@ -13,7 +13,7 @@ cd edu-game-map-java-lib
 mvn clean install -Dmaven.test.skip=true 
 ```
 
-** maven引用 **
+**maven引用**
 
 在maven项目，pom.xml添加以下依赖引用：
 
