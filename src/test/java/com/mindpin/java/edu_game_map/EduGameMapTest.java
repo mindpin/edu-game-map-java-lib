@@ -152,4 +152,32 @@ public class EduGameMapTest
         assertEquals(m2.hash_nodes.get("2-3").children.size(), 0);
         assertEquals(m2.hash_nodes.get("2-4").children.size(), 0);
     }
+
+    public void test_ancestors(){
+        Map m1 = getMap("/m1.json");
+        Map m2 = getMap("/m2.json");
+
+        assertEquals(m1.hash_nodes.get("1").ancestors().size(), 0);
+        assertEquals(m1.hash_nodes.get("2").ancestors().size(), 1); // 1
+        assertEquals(m1.hash_nodes.get("10").ancestors().size(), 5); // 9, 6, 7, 3, 1
+
+        assertEquals(m2.hash_nodes.get("2-1").ancestors().size(), 0);
+        assertEquals(m2.hash_nodes.get("2-2").ancestors().size(), 1); // 2-1
+        assertEquals(m2.hash_nodes.get("2-3").ancestors().size(), 1); // 2-1
+    }
+
+    public void test_descendants(){
+        Map m1 = getMap("/m1.json");
+        Map m2 = getMap("/m2.json");
+
+        assertEquals(m1.hash_nodes.get("1").descendants().size(), 10); // 11 - 1
+        assertEquals(m1.hash_nodes.get("2").descendants().size(), 3); // 4, 5, 8
+        assertEquals(m1.hash_nodes.get("3").descendants().size(), 5); // 6, 7, 8, 10, 11
+        assertEquals(m1.hash_nodes.get("4").descendants().size(), 1); // 8
+        assertEquals(m1.hash_nodes.get("10").descendants().size(), 0);
+
+        assertEquals(m2.hash_nodes.get("2-1").descendants().size(), 3); // 4-1
+        assertEquals(m2.hash_nodes.get("2-2").descendants().size(), 0);
+        assertEquals(m2.hash_nodes.get("2-3").descendants().size(), 0);
+    }
 }

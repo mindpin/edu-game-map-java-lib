@@ -46,7 +46,7 @@ public class Map {
     }
 
     private void init_nodes_jump() {
-        if(jump != null){
+        if (jump != null) {
             for (JumpObject obj : jump) {
                 hash_nodes.get(obj.node).jump_to_map_id = obj.map;
             }
@@ -54,7 +54,7 @@ public class Map {
     }
 
     private void init_nodes_parent() {
-        if(relations != null) {
+        if (relations != null) {
             for (Relation relation : relations) {
                 Node node = hash_nodes.get(relation.child);
                 Node parent = hash_nodes.get(relation.parent);
@@ -86,7 +86,7 @@ public class Map {
 
     static HashMap<String, Map> maps = new HashMap<String, Map>();
 
-    static public Map find(String id){
+    static public Map find(String id) {
         return maps.get(id);
     }
 }
