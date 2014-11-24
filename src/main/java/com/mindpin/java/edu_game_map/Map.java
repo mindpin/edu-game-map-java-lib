@@ -18,9 +18,8 @@ public class Map {
     // for json
     public String id;
     public List<Node> nodes;
-    // todo
-    public List<Relation> relations;
-    public List<JumpObject> jump;
+    private List<Relation> relations;
+    private List<JumpObject> jump;
     // for json end
 
     // for logic
@@ -88,5 +87,15 @@ public class Map {
 
     static public Map find(String id) {
         return maps.get(id);
+    }
+
+    class JumpObject {
+        public String node;
+        public String map;
+    }
+
+    class Relation {
+        public String parent;
+        public String child;
     }
 }

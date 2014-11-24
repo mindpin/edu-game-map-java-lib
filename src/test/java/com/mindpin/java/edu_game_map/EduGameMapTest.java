@@ -180,4 +180,27 @@ public class EduGameMapTest
         assertEquals(m2.hash_nodes.get("2-2").descendants().size(), 0);
         assertEquals(m2.hash_nodes.get("2-3").descendants().size(), 0);
     }
+
+    public void test_learn(){
+        Map m1 = getMap("/m1.json");
+        User user = new User(); // 用于测试，实际需要有对应用户
+        assertEquals(m1.hash_nodes.get("1").is_learned_by(user), true);
+        assertEquals(m1.hash_nodes.get("2").is_learned_by(user), true);
+        assertEquals(m1.hash_nodes.get("3").is_learned_by(user), true);
+        assertEquals(m1.hash_nodes.get("4").is_learned_by(user), true);
+        assertEquals(m1.hash_nodes.get("5").is_learned_by(user), true);
+        assertEquals(m1.hash_nodes.get("6").is_learned_by(user), false);
+
+        assertEquals(m1.hash_nodes.get("1").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("2").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("3").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("4").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("5").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("6").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("7").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("8").can_be_learn_by(user), true);
+        assertEquals(m1.hash_nodes.get("9").can_be_learn_by(user), false); // 6
+        assertEquals(m1.hash_nodes.get("10").can_be_learn_by(user), false); // 9
+        assertEquals(m1.hash_nodes.get("11").can_be_learn_by(user), false); // 9
+    }
 }
