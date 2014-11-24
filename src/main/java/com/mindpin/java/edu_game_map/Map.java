@@ -57,11 +57,13 @@ public class Map {
         if(relations != null) {
             for (Relation relation : relations) {
                 Node node = hash_nodes.get(relation.child);
-                node.parent = hash_nodes.get(relation.parent);
+                Node parent = hash_nodes.get(relation.parent);
+                node.parents.add(parent);
+                parent.children.add(node);
             }
 
             for (Node node : nodes) {
-                if (node.parent == null) {
+                if (node.parents.size() == 0) {
                     begin_node = node;
                     break;
                 }

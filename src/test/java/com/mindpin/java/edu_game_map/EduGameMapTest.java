@@ -110,4 +110,46 @@ public class EduGameMapTest
             }
         }
     }
+
+    public void test_nodes_parents_and_children(){
+        Map m1 = getMap("/m1.json");
+        Map m2 = getMap("/m2.json");
+        assertEquals(m1.begin_node.parents.size(), 0);
+
+        assertEquals(m1.hash_nodes.get("1").parents.size(), 0);
+        assertEquals(m1.hash_nodes.get("2").parents.size(), 1); // 1
+        assertEquals(m1.hash_nodes.get("3").parents.size(), 1); // 1
+        assertEquals(m1.hash_nodes.get("4").parents.size(), 1); // 2
+        assertEquals(m1.hash_nodes.get("5").parents.size(), 2); // 1, 2
+        assertEquals(m1.hash_nodes.get("6").parents.size(), 1); // 3
+        assertEquals(m1.hash_nodes.get("7").parents.size(), 1); // 3
+        assertEquals(m1.hash_nodes.get("8").parents.size(), 2); // 4, 5
+        assertEquals(m1.hash_nodes.get("9").parents.size(), 2); // 6 7
+        assertEquals(m1.hash_nodes.get("10").parents.size(), 1); // 9
+        assertEquals(m1.hash_nodes.get("11").parents.size(), 1); // 9
+
+        assertEquals(m1.hash_nodes.get("1").children.size(), 3); // 2, 3, 5
+        assertEquals(m1.hash_nodes.get("2").children.size(), 2); // 4, 5
+        assertEquals(m1.hash_nodes.get("3").children.size(), 2); // 6, 7
+        assertEquals(m1.hash_nodes.get("4").children.size(), 1); // 8
+        assertEquals(m1.hash_nodes.get("5").children.size(), 1); // 8
+        assertEquals(m1.hash_nodes.get("6").children.size(), 1); // 9
+        assertEquals(m1.hash_nodes.get("7").children.size(), 1); // 9
+        assertEquals(m1.hash_nodes.get("8").children.size(), 0);
+        assertEquals(m1.hash_nodes.get("9").children.size(), 2); // 10, 11
+        assertEquals(m1.hash_nodes.get("10").children.size(), 0);
+        assertEquals(m1.hash_nodes.get("11").children.size(), 0);
+
+        assertEquals(m2.begin_node.parents.size(), 0);
+
+        assertEquals(m2.hash_nodes.get("2-1").parents.size(), 0); // 2-2, 2-3, 2-4
+        assertEquals(m2.hash_nodes.get("2-2").parents.size(), 1); // 2-1
+        assertEquals(m2.hash_nodes.get("2-3").parents.size(), 1); // 2-1
+        assertEquals(m2.hash_nodes.get("2-4").parents.size(), 1); // 2-1
+
+        assertEquals(m2.hash_nodes.get("2-1").children.size(), 3); // 2-2, 2-3, 2-4
+        assertEquals(m2.hash_nodes.get("2-2").children.size(), 0);
+        assertEquals(m2.hash_nodes.get("2-3").children.size(), 0);
+        assertEquals(m2.hash_nodes.get("2-4").children.size(), 0);
+    }
 }

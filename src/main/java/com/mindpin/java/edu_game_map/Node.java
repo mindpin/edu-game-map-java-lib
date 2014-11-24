@@ -1,5 +1,6 @@
 package com.mindpin.java.edu_game_map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,8 +11,8 @@ public class Node {
     public String name;
     public Map map;
 //    public Map jump_to_map; // 此 node 可以跳转到的其他 map，不能是他所属的 map
-    public List<Node> parents;
-    public List<Node> children;
+    public List<Node> parents = new ArrayList<Node>();
+    public List<Node> children = new ArrayList<Node>();
     public List<Node> ancestors; // node 的所有祖先节点（不包括它自己）
     public List<Node> descendants; // node 的所有子孙节点（不包括它自己）
 
@@ -27,7 +28,7 @@ public class Node {
     }
 
     // for logic
-    public Node parent = null;
+//    public Node parent = null;
     public Map jump_to_map(){
         return Map.find(jump_to_map_id);
     }
