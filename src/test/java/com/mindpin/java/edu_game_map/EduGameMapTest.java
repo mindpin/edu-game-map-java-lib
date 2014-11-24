@@ -89,4 +89,25 @@ public class EduGameMapTest
             }
         }
     }
+
+    public void test_nodes_is_begin_node(){
+        Map m1 = getMap("/m1.json");
+        Map m2 = getMap("/m2.json");
+        for (Node node : m1.nodes){
+            if(node.id.equals("1")) {
+                assertTrue(node.is_begin_node());
+            }
+            else{
+                assertFalse(node.is_begin_node());
+            }
+        }
+        for (Node node : m2.nodes){
+            if(node.id.equals("2-1")) {
+                assertTrue(node.is_begin_node());
+            }
+            else{
+                assertFalse(node.is_begin_node());
+            }
+        }
+    }
 }
