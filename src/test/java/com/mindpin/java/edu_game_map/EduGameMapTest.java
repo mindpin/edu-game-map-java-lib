@@ -1,5 +1,6 @@
 package com.mindpin.java.edu_game_map;
 
+import com.mindpin.java.edu_game_map.utils.JsonGetter;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -37,7 +38,11 @@ public class EduGameMapTest
 
     public String getTestJson(String filename) throws FileNotFoundException {
         File file = new File(getTestJsonPath(filename));
-        return new Scanner(file).useDelimiter("\\Z").next();
+        return JsonGetter.from_file(file);
+    }
+
+    public String getTestJsonFromUrl(String url) {
+        return JsonGetter.from_url(url);
     }
 
     public Map getMap(String filename){
@@ -202,5 +207,14 @@ public class EduGameMapTest
         assertEquals(m1.hash_nodes.get("9").can_be_learn_by(user), false); // 6
         assertEquals(m1.hash_nodes.get("10").can_be_learn_by(user), false); // 9
         assertEquals(m1.hash_nodes.get("11").can_be_learn_by(user), false); // 9
+    }
+
+    public void test_get_json_from_url(){
+        // todo 可能被墙了
+        Map m1 = Map.from_http("http://www.mocky.io/v2/547300140beca2ed0223c2e4");
+        assertEquals(m1.id, "m1");
+
+        Map m2 = Map.from_http("http://www.mocky.io/v2/547300720beca2f60223c2e5");
+        assertEquals(m2.id, "m2");
     }
 }

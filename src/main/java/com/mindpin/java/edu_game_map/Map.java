@@ -1,9 +1,13 @@
 package com.mindpin.java.edu_game_map;
 
 import com.google.gson.Gson;
+import com.mindpin.java.edu_game_map.utils.JsonGetter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by dd on 14-11-20.
@@ -81,6 +85,16 @@ public class Map {
         Map map = new Gson().fromJson(json, Map.class);
         map.init();
         return map;
+    }
+
+    static public Map from_file(File file) throws FileNotFoundException {
+        String json = JsonGetter.from_file(file);
+        return from_json(json);
+    }
+
+    static public Map from_http(String url) {
+        String json = JsonGetter.from_url(url);
+        return from_json(json);
     }
 
     static HashMap<String, Map> maps = new HashMap<String, Map>();
