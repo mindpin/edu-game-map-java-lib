@@ -63,4 +63,30 @@ public class EduGameMapTest
         assertEquals(map.nodes.size(), 4);
         assertEquals(map.begin_node.id, "2-1");
     }
+
+    public void test_nodes_map(){
+        Map m1 = getMap("/m1.json");
+        Map m2 = getMap("/m2.json");
+        for (Node node : m1.nodes){
+            assertEquals(node.map, m1);
+        }
+        for (Node node : m2.nodes){
+            assertEquals(node.map, m2);
+        }
+    }
+
+    public void test_nodes_jump_to_map(){
+        Map m1 = getMap("/m1.json");
+        Map m2 = getMap("/m2.json");
+        for (Node node : m1.nodes){
+            if(node.id.equals("10")) {
+                assertEquals(node.jump_to_map(), m2);
+            }
+        }
+        for (Node node : m2.nodes){
+            if(node.id.equals("2-1")) {
+                assertEquals(node.jump_to_map(), m1);
+            }
+        }
+    }
 }

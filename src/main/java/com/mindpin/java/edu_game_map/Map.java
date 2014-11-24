@@ -20,38 +20,71 @@ public class Map {
     public List<Node> nodes;
     // todo
     public List<Relation> relations;
-    public List<Object> jump;
+    public List<JumpObject> jump;
     // for json end
 
     // for logic
     public HashMap<String, Node> hash_nodes = new HashMap<String, Node>();
     // for logic end
 
-    static public Map from_json(String json) {
-        Map map = new Gson().fromJson(json, Map.class);
-        init_hash_nodes(map);
-
-        init_nodes_parent(map);
-        return map;
+    private void init() {
+        init_nodes();
+        maps.put(id, this);
     }
 
-    private static void init_nodes_parent(Map map) {
-        for (Relation relation : map.relations) {
-            Node node = map.hash_nodes.get(relation.child);
-            node.parent = map.hash_nodes.get(relation.parent);
+    private void init_nodes_map() {
+        for (Node node : nodes) {
+            node.map = this;
         }
+    }
 
-        for (Node node : map.nodes){
-            if(node.parent == null) {
-                map.begin_node = node;
-                break;
+    private void init_nodes() {
+        init_nodes_hash();
+        init_nodes_map();
+        init_nodes_parent();
+        init_nodes_jump();
+    }
+
+    private void init_nodes_jump() {
+        if(jump != null){
+            for (JumpObject obj : jump) {
+                hash_nodes.get(obj.node).jump_to_map_id = obj.map;
             }
         }
     }
 
-    private static void init_hash_nodes(Map map) {
-        for (Node node : map.nodes) {
-            map.hash_nodes.put(node.id, node);
+    private void init_nodes_parent() {
+        if(relations != null) {
+            for (Relation relation : relations) {
+                Node node = hash_nodes.get(relation.child);
+                node.parent = hash_nodes.get(relation.parent);
+            }
+
+            for (Node node : nodes) {
+                if (node.parent == null) {
+                    begin_node = node;
+                    break;
+                }
+            }
         }
+    }
+
+    private void init_nodes_hash() {
+        for (Node node : nodes) {
+            node.map = this;
+            hash_nodes.put(node.id, node);
+        }
+    }
+
+    static public Map from_json(String json) {
+        Map map = new Gson().fromJson(json, Map.class);
+        map.init();
+        return map;
+    }
+
+    static HashMap<String, Map> maps = new HashMap<String, Map>();
+
+    static public Map find(String id){
+        return maps.get(id);
     }
 }
