@@ -1,6 +1,7 @@
 package com.mindpin.java.edu_game_map;
 
 import com.google.gson.Gson;
+import com.mindpin.java.edu_game_map.utils.JsonGetter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.List;
  * Created by dd on 14-11-20.
  */
 public class Node {
+    private static final String FORMAT_LEARNED = "http://domain.com/users/%s/maps/%s/learned.json";
     public String id;
     public String name;
     public Map map;
@@ -74,6 +76,7 @@ public class Node {
     }
 
     private String get_learned_json(String map_id, String user_id) {
+//        return JsonGetter.from_url(String.format(FORMAT_LEARNED, user_id, map_id));
         // todo need change to http api
         return "{\n" +
                 "  \"user\" : \"1\",\n" +
