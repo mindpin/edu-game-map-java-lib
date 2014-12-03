@@ -28,7 +28,11 @@ mvn clean install -Dmaven.test.skip=true
 
 使用说明
 ---------------------
-请参考示例
+```java
+Map map = Map.from_json(json) //从json获取map对象
+Map m1 = Map.from_http("http://www.mocky.io/v2/547300140beca2ed0223c2e4"); //从url获取map对象
+Map m2 = Map.from_file(new File("/m2.json")); //从json file获取map对象
+```
 
 
 依赖库

@@ -217,4 +217,24 @@ public class EduGameMapTest
         Map m2 = Map.from_http("http://www.mocky.io/v2/547300720beca2f60223c2e5");
         assertEquals(m2.id, "m2");
     }
+
+    public void test_get_json_from_file(){
+        File file_m1 = new File(getTestJsonPath("/m1.json"));
+        Map m1 = null;
+        try {
+            m1 = Map.from_file(file_m1);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(m1.id, "m1");
+
+        File file_m2 = new File(getTestJsonPath("/m2.json"));
+        Map m2 = null;
+        try {
+            m2 = Map.from_file(file_m2);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assertEquals(m2.id, "m2");
+    }
 }
